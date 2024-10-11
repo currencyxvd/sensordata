@@ -11,8 +11,8 @@ public class SensorProcessor implements Runnable {
     public void run() {
         try {
             while (true) {
-                SensorData data = eventQueue.take(); // Берем данные из очереди
-                process(data); // Обрабатываем данные
+                SensorData data = eventQueue.take(); 
+                process(data); 
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -21,7 +21,7 @@ public class SensorProcessor implements Runnable {
 
     private void process(SensorData data) {
         System.out.println("Processing: " + data);
-        // Допустим, делаем какие-то вычисления над данными
+        
         double processedValue = data.getValue() * 1.05;
         System.out.println("Processed value for sensor " + data.getSensorId() + ": " + processedValue);
     }
