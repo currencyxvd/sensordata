@@ -1,0 +1,28 @@
+import java.util.concurrent.BlockingQueue;
+
+public class SensorProcessor implements Runnable {
+    private BlockingQueue<SensorData> eventQueue;
+
+    public SensorProcessor(BlockingQueue<SensorData> eventQueue) {
+        this.eventQueue = eventQueue;
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (true) {
+                SensorData data = eventQueue.take(); // Берем данные из очереди
+                process(data); // Обрабатываем данные
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    private void process(SensorData data) {
+        System.out.println("Processing: " + data);
+        // Допустим, делаем какие-то вычисления над данными
+        double processedValue = data.getValue() * 1.05;
+        System.out.println("Processed value for sensor " + data.getSensorId() + ": " + processedValue);
+    }
+}
